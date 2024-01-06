@@ -1,4 +1,7 @@
 <?php
+
+require "mail.php";
+
 $status = "";
 
 function validateForm($name, $email, $subject, $message){    
@@ -18,7 +21,11 @@ function validateForm($name, $email, $subject, $message){
             $subject = htmlentities($_POST['subject']);
             $message = htmlentities($_POST['message']);
 
+            $body = "$name <$email> te envia el siguiente mensaje: <br><br>
+            $message";
+
             // Mandar el correo
+            sendMail($subject, $body, $email, $name, true);
 
             $status = "success";
         } else {
